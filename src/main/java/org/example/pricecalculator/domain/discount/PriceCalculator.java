@@ -11,7 +11,7 @@ public class PriceCalculator {
     /**
      * Lets make assumption that lowest possible price is 0.01 $
      */
-    public Price calculate(Price unitPrice, Amount amount) {
+    public static Price calculate(Price unitPrice, Amount amount) {
         var total = unitPrice.price().multiply(amount.amount()).setScale(2, RoundingMode.HALF_UP);
         if (total.equals(new BigDecimal("0.00"))) {
             total = new BigDecimal("0.01");
