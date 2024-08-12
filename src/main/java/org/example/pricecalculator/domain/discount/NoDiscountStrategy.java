@@ -5,8 +5,8 @@ public class NoDiscountStrategy implements DiscountStrategy {
     public Discount calculate(DiscountContext discountContext) {
         return new Discount(
                 DiscountType.NO_DISCOUNT,
-                discountContext.price(),
-                discountContext.price(),
+                discountContext.unitPrice(),
+                discountContext.unitPrice(),
                 discountContext.amount());
     }
 }

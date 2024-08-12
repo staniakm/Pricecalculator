@@ -5,7 +5,7 @@ import org.example.pricecalculator.domain.product.Price;
 
 public record Discount(
         DiscountType discountType,
-        Price discountPrice,
+        Price discountedPrice,
         Price originalPrice,
         Amount itemsOrdered) {
 }
