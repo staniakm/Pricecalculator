@@ -1,4 +1,7 @@
 package org.example.pricecalculator.domain.discount;
 
-public class DiscountContext {
+import org.example.pricecalculator.domain.product.Amount;
+import org.example.pricecalculator.domain.product.Price;
+
+public record DiscountContext(Price price, Amount amount) {
 }

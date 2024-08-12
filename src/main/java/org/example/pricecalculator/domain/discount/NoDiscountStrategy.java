@@ -3,6 +3,10 @@ package org.example.pricecalculator.domain.discount;
 public class NoDiscountStrategy implements DiscountStrategy {
     @Override
     public Discount calculate(DiscountContext discountContext) {
-        return new Discount(DiscountType.NO_DISCOUNT);
+        return new Discount(
+                DiscountType.NO_DISCOUNT,
+                discountContext.price(),
+                discountContext.price(),
+                discountContext.amount());
     }
 }
