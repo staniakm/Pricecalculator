@@ -1,4 +1,4 @@
 package org.example.pricecalculator.domain.discount;
 
-record Discount() {
+public record Discount(DiscountType discountType) {
 }
