@@ -1,5 +1,8 @@
-package org.example.pricecalculator.domain.discount;
+package org.example.pricecalculator.unit.domain.discount;
 
+import org.example.pricecalculator.domain.discount.Discount;
+import org.example.pricecalculator.domain.discount.DiscountContext;
+import org.example.pricecalculator.domain.discount.NoDiscountStrategy;
 import org.example.pricecalculator.domain.product.Amount;
 import org.example.pricecalculator.domain.product.Currency;
 import org.example.pricecalculator.domain.product.Price;

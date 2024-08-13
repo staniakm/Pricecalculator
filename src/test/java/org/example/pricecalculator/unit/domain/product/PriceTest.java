@@ -1,5 +1,7 @@
-package org.example.pricecalculator.domain.product;
+package org.example.pricecalculator.unit.domain.product;
 
+import org.example.pricecalculator.domain.product.Currency;
+import org.example.pricecalculator.domain.product.Price;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
