@@ -1,4 +1,24 @@
-# curl -H "Content-Type: application/json" -X POST http://localhost:8080/api/price -d "{\"discountType\": \"AMOUNT\",\"products\":[{\"productId\":\"794c5988-4bbb-4f6b-9988-0d40e15dd8f6\",\"amount\": 10.00},{\"productId\":\"60e01266-a6de-484e-b3c0-325ae19575e6\",\"amount\" : 100}]}"
+# curl -H "Content-Type: application/json" -X POST http://localhost:8080/api/price -d "{\"discountType\": \"AMOUNT\",\"products\":[{\"productId\":\"794c5988-4bbb-4f6b-9988-0d40e15dd8f6\",\"amount\": 10.00},{\"productId\":\"161fda06-205d-45d2-8234-04cf654b43b2\",\"amount\" : 100}]}"
+POST http://localhost:8080/api/price
+Content-Type: application/json
+
+{
+  "discountType": "AMOUNT",
+  "products": [
+    {
+      "productId": "794c5988-4bbb-4f6b-9988-0d40e15dd8f6",
+      "amount": 10.00
+    },
+    {
+      "productId": "161fda06-205d-45d2-8234-04cf654b43b2",
+      "amount": 100
+    }
+  ]
+}
+
+###
+
+# curl -H "Content-Type: application/json" -X POST http://localhost:8080/api/price -d "{\"discountType\": \"PERCENTAGE\",\"products\":[{\"productId\":\"794c5988-4bbb-4f6b-9988-0d40e15dd8f6\",\"amount\": 10.00},{\"productId\":\"60e01266-a6de-484e-b3c0-325ae19575e6\",\"amount\" : 100}]}"
 POST http://localhost:8080/api/price
 Content-Type: application/json
 
@@ -15,6 +35,3 @@ Content-Type: application/json
     }
   ]
 }
-
-###
-
