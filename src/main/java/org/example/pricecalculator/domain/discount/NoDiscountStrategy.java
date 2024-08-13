@@ -10,4 +10,9 @@ public class NoDiscountStrategy implements DiscountStrategy {
                 totalPrice,
                 discountContext.amount());
     }
+
+    @Override
+    public DiscountType discountType() {
+        return DiscountType.NO_DISCOUNT;
+    }
 }

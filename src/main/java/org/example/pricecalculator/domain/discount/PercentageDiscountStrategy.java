@@ -30,6 +30,11 @@ public class PercentageDiscountStrategy implements DiscountStrategy {
                         discountContext.amount()));
     }
 
+    @Override
+    public DiscountType discountType() {
+        return DiscountType.PERCENTAGE;
+    }
+
     private Discount buildDiscount(Price discountedPrice, Price totalPrice, Amount amount) {
         return new Discount(
                 DiscountType.PERCENTAGE,

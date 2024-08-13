@@ -33,6 +33,11 @@ public class AmountDiscountStrategy implements DiscountStrategy {
 
     }
 
+    @Override
+    public DiscountType discountType() {
+        return DiscountType.AMOUNT;
+    }
+
     private Discount buildDiscount(Price discountedPrice, Price totalPrice, Amount amount) {
         return new Discount(
                 DiscountType.AMOUNT,
