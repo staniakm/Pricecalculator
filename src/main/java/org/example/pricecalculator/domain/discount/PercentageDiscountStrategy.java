@@ -46,7 +46,10 @@ public class PercentageDiscountStrategy implements DiscountStrategy {
     }
 
     private Price applyDiscount(Price totalPrice, BigDecimal discount) {
-        var discountedValue = totalPrice.price().multiply(discount).setScale(2, RoundingMode.HALF_UP);
+        var discountedValue = totalPrice.price()
+                .multiply(discount)
+                .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP)
+                .setScale(2, RoundingMode.HALF_UP);
 
         var discountedPrice = totalPrice.price().subtract(discountedValue);
         return new Price(discountedPrice, totalPrice.currency());
@@ -55,7 +58,7 @@ public class PercentageDiscountStrategy implements DiscountStrategy {
     private Optional<BigDecimal> findDiscount(Amount orderedItemsCount) {
         return discounts.stream()
                 .filter(discount -> new BigDecimal(discount.minLimit()).compareTo(orderedItemsCount.amount()) <= 0)
-                .map(discount -> discount.discount().divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP))
+                .map(DiscountDefinition::discount)
                 .findFirst();
     }
 }

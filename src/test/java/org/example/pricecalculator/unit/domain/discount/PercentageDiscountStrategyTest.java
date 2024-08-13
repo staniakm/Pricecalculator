@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class PercentageDiscountStrategyTest {
 
     List<DiscountDefinition> discountDefinitions = List.of(
-            new DiscountDefinition(10, new BigDecimal("3.00")),
+            new DiscountDefinition(10, new BigDecimal(3)),
             new DiscountDefinition(5, new BigDecimal("1.00")),
             new DiscountDefinition(50, new BigDecimal("5.00"))
     );
