@@ -17,4 +17,8 @@ public record Amount(BigDecimal amount) {
     public static Amount of(BigDecimal amount) {
         return new Amount(amount);
     }
+
+    public static Amount of(Double amount) {
+        return of(BigDecimal.valueOf(amount));
+    }
 }
