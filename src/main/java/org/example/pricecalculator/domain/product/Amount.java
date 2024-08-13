@@ -8,6 +8,10 @@ public record Amount(BigDecimal amount) {
         if (amount == null) {
             throw new IllegalArgumentException("Amount should be provided");
         }
+
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Amount should be greater than zero");
+        }
     }
 
     public static Amount of(BigDecimal amount) {

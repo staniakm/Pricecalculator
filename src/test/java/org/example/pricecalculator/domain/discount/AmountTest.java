@@ -18,8 +18,22 @@ public class AmountTest {
     }
 
     @Test
-    void shouldNotThrowExceptionWhenAmountIsZero() {
-        var amount = assertDoesNotThrow(() -> new Amount(new BigDecimal("0")));
+    void shouldThrowExceptionWhenAmountIsZero() {
+        var throwed = assertThrows(IllegalArgumentException.class, () -> new Amount(new BigDecimal("0")));
+
+        assertEquals("Amount should be greater than zero", throwed.getMessage());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenAmountIsBelowZero() {
+        var throwed = assertThrows(IllegalArgumentException.class, () -> new Amount(new BigDecimal("-0.01")));
+
+        assertEquals("Amount should be greater than zero", throwed.getMessage());
+    }
+
+    @Test
+    void shouldCreateValidAmount() {
+        var amount = assertDoesNotThrow(() -> new Amount(new BigDecimal("0.01")));
 
         assertNotNull(amount);
     }
