@@ -22,17 +22,26 @@ public class AmountDiscountStrategy implements DiscountStrategy {
     public Discount calculate(DiscountContext discountContext) {
         var totalPrice = PriceCalculator.calculate(discountContext.unitPrice(), discountContext.amount());
         var discountDefinition = findDiscount(discountContext.amount());
-        var discountedPrice = discountDefinition
-                .map(discount -> applyDiscount(totalPrice, discount)
-                ).orElse(totalPrice);
+        return discountDefinition
+                .map(discount -> calculatePrice(totalPrice, discount))
+                .map(price -> buildDiscount(price, totalPrice, discountContext.amount()))
+                .orElse(new Discount(
+                        DiscountType.NO_DISCOUNT,
+                        totalPrice,
+                        totalPrice,
+                        discountContext.amount()));
+
+    }
+
+    private Discount buildDiscount(Price discountedPrice, Price totalPrice, Amount amount) {
         return new Discount(
                 DiscountType.AMOUNT,
                 discountedPrice,
                 totalPrice,
-                discountContext.amount());
+                amount);
     }
 
-    private Price applyDiscount(Price totalPrice, DiscountDefinition discount) {
+    private Price calculatePrice(Price totalPrice, DiscountDefinition discount) {
         var discounted = totalPrice.price().subtract(discount.discount());
         if (discounted.compareTo(BigDecimal.ZERO) <= 0) {
             return new Price(new BigDecimal("0.01"), totalPrice.currency());

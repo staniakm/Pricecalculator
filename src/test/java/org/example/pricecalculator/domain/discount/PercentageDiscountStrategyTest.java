@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.example.pricecalculator.domain.discount.DiscountType.NO_DISCOUNT;
 import static org.example.pricecalculator.domain.discount.DiscountType.PERCENTAGE;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -29,7 +30,7 @@ public class PercentageDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("83.96"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("83.96"), Currency.of("USD"));
-        var expectedDiscount = new Discount(PERCENTAGE, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(NO_DISCOUNT, discountPrice, totalPrice, itemsOrdered);
 
         // when
         var discount = strategy.calculate(discountContext);

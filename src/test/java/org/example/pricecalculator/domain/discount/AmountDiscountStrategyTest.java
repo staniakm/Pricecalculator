@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.example.pricecalculator.domain.discount.DiscountType.AMOUNT;
+import static org.example.pricecalculator.domain.discount.DiscountType.NO_DISCOUNT;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AmountDiscountStrategyTest {
@@ -22,7 +23,7 @@ public class AmountDiscountStrategyTest {
     );
 
     @Test
-    void shouldReturnDiscountPriceEqualToTotalWhenNoLimitWasReached() {
+    void shouldReturnNoDiscountPriceEqualToTotalWhenNoLimitWasReached() {
         // given
         var discountStrategy = new AmountDiscountStrategy(discountDefinitions);
         var itemPrice = new Price(new BigDecimal("20.99"), Currency.of("USD"));
@@ -30,7 +31,7 @@ public class AmountDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("83.96"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("83.96"), Currency.of("USD"));
-        var expectedDiscount = new Discount(AMOUNT, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(NO_DISCOUNT, discountPrice, totalPrice, itemsOrdered);
 
         // when
         var discount = discountStrategy.calculate(discountContext);
