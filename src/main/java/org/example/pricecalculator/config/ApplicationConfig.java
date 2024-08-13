@@ -1,9 +1,6 @@
 package org.example.pricecalculator.config;
 
-import org.example.pricecalculator.domain.discount.AmountDiscountStrategy;
-import org.example.pricecalculator.domain.discount.DiscountDefinition;
-import org.example.pricecalculator.domain.discount.NoDiscountStrategy;
-import org.example.pricecalculator.domain.discount.PercentageDiscountStrategy;
+import org.example.pricecalculator.domain.discount.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +27,11 @@ public class ApplicationConfig {
     @Bean
     public NoDiscountStrategy noDiscountStrategy() {
         return new NoDiscountStrategy();
+    }
+
+    @Bean
+    public DiscountService discountService(List<DiscountStrategy> strategies) {
+        return new DiscountService(strategies);
     }
 }
 
