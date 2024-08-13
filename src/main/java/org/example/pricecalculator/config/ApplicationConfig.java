@@ -30,8 +30,8 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public DiscountService discountService(List<DiscountStrategy> strategies) {
-        return new DiscountService(strategies);
+    public DiscountService discountService(List<DiscountStrategy> strategies, NoDiscountStrategy noDiscountStrategy) {
+        return new DiscountService(strategies, noDiscountStrategy);
     }
 }
 
