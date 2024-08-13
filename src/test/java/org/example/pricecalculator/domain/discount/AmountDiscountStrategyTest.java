@@ -12,7 +12,7 @@ import java.util.List;
 import static org.example.pricecalculator.domain.discount.DiscountType.AMOUNT;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class AmountBasedStrategyTest {
+public class AmountDiscountStrategyTest {
 
 
     List<DiscountDefinition> discountDefinitions = List.of(
@@ -24,7 +24,7 @@ public class AmountBasedStrategyTest {
     @Test
     void shouldReturnDiscountPriceEqualToTotalWhenNoLimitWasReached() {
         // given
-        var discountStrategy = new AmountBasedStrategy(discountDefinitions);
+        var discountStrategy = new AmountDiscountStrategy(discountDefinitions);
         var itemPrice = new Price(new BigDecimal("20.99"), Currency.of("USD"));
         var itemsOrdered = Amount.of(new BigDecimal("4"));
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
@@ -42,7 +42,7 @@ public class AmountBasedStrategyTest {
     @Test
     void shouldReturnDiscountBasedOnOrderedAmount() {
         // given
-        var discountStrategy = new AmountBasedStrategy(discountDefinitions);
+        var discountStrategy = new AmountDiscountStrategy(discountDefinitions);
         var itemPrice = new Price(new BigDecimal("20.99"), Currency.of("USD"));
         var itemsOrdered = Amount.of(new BigDecimal("21"));
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
@@ -60,7 +60,7 @@ public class AmountBasedStrategyTest {
     @Test
     void shouldReturnLowestPossiblePriceWhenDiscountedPriceIsZero() {
         // given
-        var discountStrategy = new AmountBasedStrategy(discountDefinitions);
+        var discountStrategy = new AmountDiscountStrategy(discountDefinitions);
         var itemPrice = new Price(new BigDecimal("0.2"), Currency.of("USD"));
         var itemsOrdered = Amount.of(new BigDecimal("10"));
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
@@ -78,7 +78,7 @@ public class AmountBasedStrategyTest {
     @Test
     void shouldReturnLowestPossiblePriceWhenDiscountedPriceBelowZero() {
         // given
-        var discountStrategy = new AmountBasedStrategy(discountDefinitions);
+        var discountStrategy = new AmountDiscountStrategy(discountDefinitions);
         var itemPrice = new Price(new BigDecimal("0.1"), Currency.of("USD"));
         var itemsOrdered = Amount.of(new BigDecimal("10"));
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);

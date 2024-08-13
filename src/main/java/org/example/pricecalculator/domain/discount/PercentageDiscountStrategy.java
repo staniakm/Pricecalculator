@@ -4,46 +4,43 @@ import org.example.pricecalculator.domain.product.Amount;
 import org.example.pricecalculator.domain.product.Price;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
-public class AmountBasedStrategy implements DiscountStrategy {
+public class PercentageDiscountStrategy implements DiscountStrategy {
+
     private final List<DiscountDefinition> discounts;
 
-    public AmountBasedStrategy(List<DiscountDefinition> discounts) {
+    public PercentageDiscountStrategy(List<DiscountDefinition> discounts) {
         this.discounts = discounts.stream().sorted((d1, d2) -> Integer.compare(d2.limit(), d1.limit())).toList();
     }
 
-    /**
-     * Lets assume that lowest possible price is 0.01
-     * When discounted price hit zero or lower 0.01 will be returned
-     */
     @Override
     public Discount calculate(DiscountContext discountContext) {
         var totalPrice = PriceCalculator.calculate(discountContext.unitPrice(), discountContext.amount());
         var discountDefinition = findDiscount(discountContext.amount());
         var discountedPrice = discountDefinition
-                .map(discount -> applyDiscount(totalPrice, discount)
+                .map(discountPercentage -> applyDiscount(totalPrice, discountPercentage)
                 ).orElse(totalPrice);
         return new Discount(
-                DiscountType.AMOUNT,
+                DiscountType.PERCENTAGE,
                 discountedPrice,
                 totalPrice,
                 discountContext.amount());
     }
 
-    private Price applyDiscount(Price totalPrice, DiscountDefinition discount) {
-        var discounted = totalPrice.price().subtract(discount.discount());
-        if (discounted.compareTo(BigDecimal.ZERO) <= 0) {
-            return new Price(new BigDecimal("0.01"), totalPrice.currency());
-        } else {
-            return new Price(discounted, totalPrice.currency());
-        }
+    private Price applyDiscount(Price totalPrice, BigDecimal discount) {
+        var discountedValue = totalPrice.price().multiply(discount).setScale(2, RoundingMode.HALF_UP);
+
+        var discountedPrice = totalPrice.price().subtract(discountedValue);
+        return new Price(discountedPrice, totalPrice.currency());
     }
 
-    private Optional<DiscountDefinition> findDiscount(Amount orderedItemsCount) {
+    private Optional<BigDecimal> findDiscount(Amount orderedItemsCount) {
         return discounts.stream()
                 .filter(discount -> new BigDecimal(discount.limit()).compareTo(orderedItemsCount.amount()) <= 0)
+                .map(discount -> discount.discount().divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP))
                 .findFirst();
     }
 }
