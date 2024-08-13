@@ -8,6 +8,7 @@ public class NoDiscountStrategy implements DiscountStrategy {
                 DiscountType.NO_DISCOUNT,
                 totalPrice,
                 totalPrice,
+                discountContext.unitPrice(),
                 discountContext.amount());
     }
 

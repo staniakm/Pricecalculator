@@ -22,11 +22,12 @@ public class PercentageDiscountStrategy implements DiscountStrategy {
         var discountDefinition = findDiscount(discountContext.amount());
         return discountDefinition
                 .map(discountPercentage -> applyDiscount(totalPrice, discountPercentage))
-                .map(price -> buildDiscount(price, totalPrice, discountContext.amount()))
+                .map(price -> buildDiscount(price, totalPrice, discountContext))
                 .orElse(new Discount(
                         DiscountType.NO_DISCOUNT,
                         totalPrice,
                         totalPrice,
+                        discountContext.unitPrice(),
                         discountContext.amount()));
     }
 
@@ -35,12 +36,13 @@ public class PercentageDiscountStrategy implements DiscountStrategy {
         return DiscountType.PERCENTAGE;
     }
 
-    private Discount buildDiscount(Price discountedPrice, Price totalPrice, Amount amount) {
+    private Discount buildDiscount(Price discountedPrice, Price totalPrice, DiscountContext context) {
         return new Discount(
                 DiscountType.PERCENTAGE,
                 discountedPrice,
                 totalPrice,
-                amount);
+                context.unitPrice(),
+                context.amount());
     }
 
     private Price applyDiscount(Price totalPrice, BigDecimal discount) {

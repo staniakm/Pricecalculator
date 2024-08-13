@@ -35,7 +35,7 @@ public class AmountDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("83.96"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("83.96"), Currency.of("USD"));
-        var expectedDiscount = new Discount(NO_DISCOUNT, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(NO_DISCOUNT, discountPrice, totalPrice, itemPrice, itemsOrdered);
 
         // when
         var discount = discountStrategy.calculate(discountContext);
@@ -53,7 +53,7 @@ public class AmountDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("438.79"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("440.79"), Currency.of("USD"));
-        var expectedDiscount = new Discount(AMOUNT, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(AMOUNT, discountPrice, totalPrice, itemPrice, itemsOrdered);
 
         // when
         var discount = discountStrategy.calculate(discountContext);
@@ -71,7 +71,7 @@ public class AmountDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("0.01"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("2.00"), Currency.of("USD"));
-        var expectedDiscount = new Discount(AMOUNT, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(AMOUNT, discountPrice, totalPrice, itemPrice, itemsOrdered);
 
         // when
         var discount = discountStrategy.calculate(discountContext);
@@ -89,7 +89,7 @@ public class AmountDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("0.01"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("1.00"), Currency.of("USD"));
-        var expectedDiscount = new Discount(AMOUNT, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(AMOUNT, discountPrice, totalPrice, itemPrice, itemsOrdered);
 
         // when
         var discount = discountStrategy.calculate(discountContext);

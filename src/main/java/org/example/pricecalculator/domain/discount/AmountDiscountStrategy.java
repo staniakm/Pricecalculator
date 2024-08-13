@@ -24,11 +24,12 @@ public class AmountDiscountStrategy implements DiscountStrategy {
         var discountDefinition = findDiscount(discountContext.amount());
         return discountDefinition
                 .map(discount -> calculatePrice(totalPrice, discount))
-                .map(price -> buildDiscount(price, totalPrice, discountContext.amount()))
+                .map(price -> buildDiscount(price, totalPrice, discountContext))
                 .orElse(new Discount(
                         DiscountType.NO_DISCOUNT,
                         totalPrice,
                         totalPrice,
+                        discountContext.unitPrice(),
                         discountContext.amount()));
 
     }
@@ -38,12 +39,13 @@ public class AmountDiscountStrategy implements DiscountStrategy {
         return DiscountType.AMOUNT;
     }
 
-    private Discount buildDiscount(Price discountedPrice, Price totalPrice, Amount amount) {
+    private Discount buildDiscount(Price discountedPrice, Price totalPrice, DiscountContext context) {
         return new Discount(
                 DiscountType.AMOUNT,
                 discountedPrice,
                 totalPrice,
-                amount);
+                context.unitPrice(),
+                context.amount());
     }
 
     private Price calculatePrice(Price totalPrice, DiscountDefinition discount) {

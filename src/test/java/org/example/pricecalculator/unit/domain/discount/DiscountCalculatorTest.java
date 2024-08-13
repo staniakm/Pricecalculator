@@ -23,7 +23,7 @@ public class DiscountCalculatorTest {
         var itemsOrdered = Amount.of(new BigDecimal("21"));
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var expectedPrice = new Price(new BigDecimal("440.79"), Currency.of("PLN"));
-        var expectedDiscount = new Discount(NO_DISCOUNT, expectedPrice, expectedPrice, itemsOrdered);
+        var expectedDiscount = new Discount(NO_DISCOUNT, expectedPrice, expectedPrice, itemPrice, itemsOrdered);
 
         // when
         var discount = discountStrategy.calculate(discountContext);

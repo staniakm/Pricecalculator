@@ -34,7 +34,7 @@ public class PercentageDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("83.96"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("83.96"), Currency.of("USD"));
-        var expectedDiscount = new Discount(NO_DISCOUNT, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(NO_DISCOUNT, discountPrice, totalPrice, itemPrice, itemsOrdered);
 
         // when
         var discount = strategy.calculate(discountContext);
@@ -53,7 +53,7 @@ public class PercentageDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("427.57"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("440.79"), Currency.of("USD"));
-        var expectedDiscount = new Discount(PERCENTAGE, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(PERCENTAGE, discountPrice, totalPrice, itemPrice, itemsOrdered);
 
         // when
         var discount = discountStrategy.calculate(discountContext);
@@ -72,7 +72,7 @@ public class PercentageDiscountStrategyTest {
         var discountContext = new DiscountContext(itemPrice, itemsOrdered);
         var discountPrice = new Price(new BigDecimal("9405.00"), Currency.of("USD"));
         var totalPrice = new Price(new BigDecimal("9900.00"), Currency.of("USD"));
-        var expectedDiscount = new Discount(PERCENTAGE, discountPrice, totalPrice, itemsOrdered);
+        var expectedDiscount = new Discount(PERCENTAGE, discountPrice, totalPrice, itemPrice, itemsOrdered);
 
         // when
         var discount = discountStrategy.calculate(discountContext);
