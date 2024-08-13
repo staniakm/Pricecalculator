@@ -1,4 +1,6 @@
 package org.example.pricecalculator.domain.product;
 
-public record Product() {
+import java.util.UUID;
+
+public record Product(UUID id, Price unitPrice, Amount availableAmount) {
 }
