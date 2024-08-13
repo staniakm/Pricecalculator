@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: PriceCalculator
+
+discount:
+  percentage: # discount is provided as percentage eg. 3 means 3%
+    - minLimit: 10
+      discount: 3
+    - minLimit: 50
+      discount: 5
+  amount: # discount is provided as money e.g. 2 means 2$ or 2PLN
+    - minLimit: 10
+      discount: 2
+    - minLimit: 100
+      discount: 5

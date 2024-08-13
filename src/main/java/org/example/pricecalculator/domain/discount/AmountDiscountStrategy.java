@@ -11,7 +11,7 @@ public class AmountDiscountStrategy implements DiscountStrategy {
     private final List<DiscountDefinition> discounts;
 
     public AmountDiscountStrategy(List<DiscountDefinition> discounts) {
-        this.discounts = discounts.stream().sorted((d1, d2) -> Integer.compare(d2.limit(), d1.limit())).toList();
+        this.discounts = discounts.stream().sorted((d1, d2) -> Integer.compare(d2.minLimit(), d1.minLimit())).toList();
     }
 
     /**
@@ -52,7 +52,7 @@ public class AmountDiscountStrategy implements DiscountStrategy {
 
     private Optional<DiscountDefinition> findDiscount(Amount orderedItemsCount) {
         return discounts.stream()
-                .filter(discount -> new BigDecimal(discount.limit()).compareTo(orderedItemsCount.amount()) <= 0)
+                .filter(discount -> new BigDecimal(discount.minLimit()).compareTo(orderedItemsCount.amount()) <= 0)
                 .findFirst();
     }
 }

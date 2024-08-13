@@ -13,7 +13,7 @@ public class PercentageDiscountStrategy implements DiscountStrategy {
     private final List<DiscountDefinition> discounts;
 
     public PercentageDiscountStrategy(List<DiscountDefinition> discounts) {
-        this.discounts = discounts.stream().sorted((d1, d2) -> Integer.compare(d2.limit(), d1.limit())).toList();
+        this.discounts = discounts.stream().sorted((d1, d2) -> Integer.compare(d2.minLimit(), d1.minLimit())).toList();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class PercentageDiscountStrategy implements DiscountStrategy {
 
     private Optional<BigDecimal> findDiscount(Amount orderedItemsCount) {
         return discounts.stream()
-                .filter(discount -> new BigDecimal(discount.limit()).compareTo(orderedItemsCount.amount()) <= 0)
+                .filter(discount -> new BigDecimal(discount.minLimit()).compareTo(orderedItemsCount.amount()) <= 0)
                 .map(discount -> discount.discount().divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP))
                 .findFirst();
     }
