@@ -58,7 +58,7 @@ public class ProductService {
             var context = new DiscountContext(product.unitPrice(), amount);
             var discount = discountService.calculateDiscount(discountType, context);
             return new ProductAvailability(
-                    discount.originalTotalPrice(),
+                    discount.unitPrice(),
                     discount.originalTotalPrice(),
                     discount.discountedTotalPrice(),
                     requestedProductsPrice.orderedAmount(),

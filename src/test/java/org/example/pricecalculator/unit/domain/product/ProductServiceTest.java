@@ -58,18 +58,18 @@ public class ProductServiceTest {
         var product1Id = UUID.randomUUID();
         Mockito.when(productRepository.findAllByIds(Mockito.anyList()))
                 .thenReturn(Map.of(
-                                product1Id, new Product(product1Id, new Price(BigDecimal.valueOf(10), USD), Amount.of(BigDecimal.valueOf(100)))
+                                product1Id, new Product(product1Id, new Price(new BigDecimal("10.00"), USD), Amount.of(new BigDecimal("100.00")))
                         )
                 );
         var requestedProducts = List.of(
-                new RequestedProductsPrice(product1Id, Amount.of(new BigDecimal(10)))
+                new RequestedProductsPrice(product1Id, Amount.of(new BigDecimal("10.00")))
         );
         var availableProduct = new ProductPrice(product1Id, new ProductAvailability(
                 new Price(new BigDecimal("10.00"), USD),
                 new Price(new BigDecimal("100.00"), USD),
                 new Price(new BigDecimal("98.00"), USD),
-                Amount.of(BigDecimal.TEN),
-                Amount.of(BigDecimal.valueOf(100))
+                Amount.of(new BigDecimal("10.00")),
+                Amount.of(new BigDecimal("100.00"))
         ), ProductStatus.AVAILABLE);
         var expectedResult = List.of(availableProduct);
         var productService = new ProductService(productRepository, discountService);
@@ -88,11 +88,11 @@ public class ProductServiceTest {
         var product2Id = UUID.randomUUID();
         Mockito.when(productRepository.findAllByIds(Mockito.anyList()))
                 .thenReturn(Map.of(
-                                product2Id, new Product(product2Id, new Price(BigDecimal.valueOf(10), USD), Amount.of(BigDecimal.valueOf(20))) // not enough amount
+                                product2Id, new Product(product2Id, new Price(new BigDecimal("10.00"), USD), Amount.of(new BigDecimal("20.00"))) // not enough amount
                         )
                 );
         var requestedProducts = List.of(
-                new RequestedProductsPrice(product2Id, Amount.of(new BigDecimal(100)))
+                new RequestedProductsPrice(product2Id, Amount.of(new BigDecimal("100.00")))
         );
         var notEnoughProduct = new ProductPrice(product2Id, new ProductAvailability(
                 new Price(new BigDecimal("10.00"), USD),
