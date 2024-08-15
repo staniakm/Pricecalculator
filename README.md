@@ -14,6 +14,8 @@ There are 4 products in database with IDs
 
 Products details are available in class `DataInitializer`.
 
+Discounts can be configured through `application.yaml` file.
+
 Some assumptions have been made during implementation. Some of them are marked in code and all of them should be
 mentioned here. Most of them should be consulted with business to confirm if they are ok. 
 
