@@ -58,8 +58,7 @@ public class PriceCalculatorControllerTest extends BaseIntegration {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
                 )
-                .andExpect(status().isOk())
-                .andDo(MockMvcResultHandlers.print());
+                .andExpect(status().isOk());
         var responseBody = result.andReturn().getResponse().getContentAsString();
         var response = om.readValue(responseBody, ProductsPriceCheckTestResponse.class);
 
@@ -77,8 +76,7 @@ public class PriceCalculatorControllerTest extends BaseIntegration {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
                 )
-                .andExpect(status().isOk())
-                .andDo(MockMvcResultHandlers.print());
+                .andExpect(status().isOk());
         var responseBody = result.andReturn().getResponse().getContentAsString();
         var response = om.readValue(responseBody, ProductsPriceCheckTestResponse.class);
 
@@ -93,4 +91,18 @@ public class PriceCalculatorControllerTest extends BaseIntegration {
         assertEquals(101.1, firstProduct.productAvailability().availableAmount());
         assertEquals(10.01, firstProduct.productAvailability().orderedAmount());
     }
+
+    @Test
+    void shouldReturnBadRequestResponseWhenUnknownDiscountTypeWasPasses() throws Exception {
+        // expected
+        mockMvc
+                .perform(post("/api/price")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"discountType": "UNKNOWN", "products": []}""")
+                )
+                .andExpect(status().isBadRequest());
+    }
+
+
 }
